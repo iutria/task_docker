@@ -6,11 +6,14 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { FaEye, FaPlus } from "react-icons/fa";
 import { useTask } from "../states/useTask";
+import DetailsTask from "./DetailsTask";
+import { useTaskModal } from "../states/useModalDetail";
 
 const TaskList = () => {
   const navigate = useNavigate();
 
-  const { setTask, getTasks, list } = useTask();
+  const { getTasks, list } = useTask();
+  const { openModal } = useTaskModal();
 
   const url = import.meta.env.VITE_API;
 
@@ -30,6 +33,7 @@ const TaskList = () => {
 
   return (
     <Container css={{ paddingTop: "$10" }}>
+      <DetailsTask />
       <Button
         icon={<FaPlus />}
         onPress={() => navigate("/add")}
@@ -73,8 +77,7 @@ const TaskList = () => {
                   color="success"
                   icon={<FaEye />}
                   onPress={() => {
-                    setTask(item);
-                    navigate("/detail");
+                    openModal(item);
                   }}
                   auto
                 />
